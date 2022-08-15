@@ -31,8 +31,6 @@ import com.badlogic.gdx.scenes.scene2d.Group;
  * by adding support for textures/animation, 
  * collision polygons, movement, world boundaries, and camera scrolling. 
  * Most game objects should extend this class; lists of extensions can be retrieved by stage and class name.
- * @see #Actor
- * @author Lee Stemkoski
  */
 public class BaseActor extends Group
 {
