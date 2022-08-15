@@ -17,18 +17,10 @@ public class MenuScreen extends BaseScreen
 
         BaseActor title = new BaseActor(0,0, mainStage);
         title.loadTexture( "Treasure-hunt.png" );
-        // title.centerAtPosition(400,300);
-        // title.moveBy(0,100);
-
-        // BaseActor start = new BaseActor(0,0, mainStage);
-        // start.loadTexture( "assets/message-start.png" );
-        // start.centerAtPosition(400,300);
-        // start.moveBy(0,-100);
        
         TextButton startButton = new TextButton( "Start", BaseGame.textButtonStyle );
-        // startButton.setPosition(150,150);
-        // uiStage.addActor(startButton);
         
+        //using anonymous classes
         startButton.addListener(
             (Event e) -> 
             { 
@@ -44,8 +36,7 @@ public class MenuScreen extends BaseScreen
         );
         
         TextButton quitButton = new TextButton( "Quit", BaseGame.textButtonStyle );
-        // quitButton.setPosition(500,150);
-        // uiStage.addActor(quitButton);
+        
         
         quitButton.addListener(
             (Event e) -> 
