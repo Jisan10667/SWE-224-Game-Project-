@@ -1,15 +1,17 @@
 package TreasureQuestGame2;
+
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.Screen;
+
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-
 import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputEvent.Type;
+
 
 public abstract class BaseScreen implements Screen, InputProcessor
 {
@@ -17,19 +19,29 @@ public abstract class BaseScreen implements Screen, InputProcessor
     protected Stage uiStage;
     protected Table uiTable;
 
-    public BaseScreen()
-    {
+
+
+
+
+    public BaseScreen() {
         mainStage = new Stage();
         uiStage = new Stage();
 
         uiTable = new Table();
         uiTable.setFillParent(true);
         uiStage.addActor(uiTable);
-
         initialize();
     }
 
+    public boolean isTouchDownEvent(Event e)
+    {
+        return (e instanceof InputEvent) && ((InputEvent)e).getType().equals(Type.touchDown);
+    }
     public abstract void initialize();
+
+
+
+
 
     public abstract void update(float dt);
 
@@ -39,7 +51,8 @@ public abstract class BaseScreen implements Screen, InputProcessor
     // (3) render the graphics
     public void render(float dt) 
     {
-        // limit amount of time that can pass while window is being dragged
+
+
         dt = Math.min(dt,1/30f);
         
         // act methods
@@ -65,7 +78,10 @@ public abstract class BaseScreen implements Screen, InputProcessor
 
     public void resume()  {  }
 
-    public void dispose() {  }
+    public void dispose() {
+
+        }
+
 
     /**
      *  Called when this becomes the active screen in a Game.
@@ -95,10 +111,7 @@ public abstract class BaseScreen implements Screen, InputProcessor
     /**
      *  Useful for checking for touch-down events.
      */
-    public boolean isTouchDownEvent(Event e)
-    {
-        return (e instanceof InputEvent) && ((InputEvent)e).getType().equals(Type.touchDown);
-    }
+
 
     // methods required by InputProcessor interface
     public boolean keyDown(int keycode)

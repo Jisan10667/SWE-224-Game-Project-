@@ -10,5 +10,6 @@ public class DesktopLauncher
     {
         TreasureHunt myGame = new TreasureHunt();
         LwjglApplication launcher = new LwjglApplication( myGame, "Treasure Hunt", 800, 600 );
+
     }
 }

@@ -1,12 +1,17 @@
+
 package TreasureQuestGame2;
-import com.badlogic.gdx.maps.MapObject;
-import com.badlogic.gdx.maps.MapProperties;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.audio.Music;
+
 
 public class LevelScreen extends BaseScreen
 {   Hero hero;
@@ -20,9 +25,27 @@ public class LevelScreen extends BaseScreen
     Label arrowLabel;
     Label messageLabel;
     DialogBox dialogBox;
+
     Treasure treasure;
 
-    public void initialize() 
+   private float audioVolume;
+   private Sound positive;
+    private Sound obstacle;
+   private Sound enemy;
+   private Music backgroundd;
+   private Sound over;
+   private Sound coinCollect;
+   private Sound Over;
+
+
+
+
+
+
+
+
+
+    public void initialize()
     {   TilemapActor tma = new TilemapActor("map.tmx", mainStage);
         for (MapObject obj : tma.getRectangleList("Solid") )
         {
@@ -31,8 +54,22 @@ public class LevelScreen extends BaseScreen
                     (float)props.get("width"), (float)props.get("height"),
                     mainStage );
 
+            coinCollect = Gdx.audio.newSound(Gdx.files.internal(("mixkit-joke-drums-578.wav")));
+            backgroundd =Gdx.audio.newMusic(Gdx.files.internal(("mixkit-game-show-happy-timer-666.wav")));
+            positive =Gdx.audio.newSound(Gdx.files.internal(("mixkit-positive-notification-951.wav")));
+            obstacle =Gdx.audio.newSound(Gdx.files.internal(("mixkit-factory-metal-hard-hit-2980.wav")));
+            enemy =Gdx.audio.newSound(Gdx.files.internal(("mixkit-wrong-long-buzzer-954.wav")));
+            over =Gdx.audio.newSound(Gdx.files.internal(("mixkit-musical-game-over-959.wav")));
+            //enemy =Gdx.audio.newMusic(Gdx.files.internal(("mixkit-wrong-long-buzzer-954")));
 
-        }
+
+
+
+
+        }audioVolume = 0.5f;backgroundd.setLooping(true);
+        backgroundd.setVolume(audioVolume);
+        backgroundd.play();
+
 
         MapObject startPoint = tma.getRectangleList("start").get(0);
         MapProperties startProps = startPoint.getProperties();
@@ -118,13 +155,15 @@ public class LevelScreen extends BaseScreen
         }
 
 
-        
+
     }
+
+
 
     public void update(float dt)
     {
-        if ( gameOver )
-            return;
+        if ( gameOver ){
+            return;}
         // hero movement controls
         if (Gdx.input.isKeyPressed(Keys.LEFT))
             hero.accelerateAtAngle(180);
@@ -143,7 +182,9 @@ public class LevelScreen extends BaseScreen
             for (BaseActor bush : BaseActor.getList(mainStage, Bush.class))
             {
                 if (sword.overlaps(bush))
-                    bush.remove();
+
+                    bush.remove();obstacle.play();
+
             }
         }
 
@@ -170,11 +211,13 @@ public class LevelScreen extends BaseScreen
             if (sword.overlaps(flyer))
             {
                 flyer.remove();
+                positive.play();
                 Coin coin = new Coin(0,0, mainStage);
                 coin.centerAtActor(flyer);
 
                 Smoke smoke = new Smoke(0,0, mainStage);
                 smoke.centerAtActor(flyer);
+
             }
         }
 
@@ -183,6 +226,7 @@ public class LevelScreen extends BaseScreen
             if ( hero.overlaps(flyer) )
             {
                 hero.preventOverlap(flyer);
+                enemy.play();
                 flyer.setMotionAngle( flyer.getMotionAngle() + 180 );
                 Vector2 heroPosition = new Vector2( hero.getX(), hero.getY() );
                 Vector2 flyerPosition = new Vector2( flyer.getX(), flyer.getY() );
@@ -197,10 +241,13 @@ public class LevelScreen extends BaseScreen
         {
             messageLabel.setText("Game over...");
             messageLabel.setColor(Color.RED);
-            messageLabel.setFontScale(2);
+            messageLabel.setFontScale(2);over.play(1.00f);
             messageLabel.setVisible(true);
             hero.remove();
-            gameOver = true;
+            gameOver = true;if(gameOver)backgroundd.stop();
+
+
+
         }
 
         for ( BaseActor coin : BaseActor.getList(mainStage, Coin.class) )
@@ -208,7 +255,7 @@ public class LevelScreen extends BaseScreen
             if ( hero.overlaps(coin) )
             {
                 coin.remove();
-                coins++;
+                coins++;coinCollect.play();
             }
         }
         if ( hero.overlaps(treasure) )
@@ -218,7 +265,7 @@ public class LevelScreen extends BaseScreen
             messageLabel.setFontScale(2);
             messageLabel.setVisible(true);
 
-            treasure.remove();
+            treasure.remove();over.play();
             gameOver = true;
         }
 
@@ -230,10 +277,11 @@ public class LevelScreen extends BaseScreen
                 {
                     flyer.remove();
                     arrow.remove();
+
                     Coin coin = new Coin(0,0, mainStage);
                     coin.centerAtActor(flyer);
                     Smoke smoke = new Smoke(0,0, mainStage);
-                    smoke.centerAtActor(flyer);
+                    smoke.centerAtActor(flyer);positive.play();
                 }
             }
 
@@ -243,6 +291,7 @@ public class LevelScreen extends BaseScreen
                 {
                     arrow.preventOverlap(solid);
                     arrow.setSpeed(0);
+
                     arrow.addAction( Actions.fadeOut(0.5f) );
                     arrow.addAction( Actions.after( Actions.removeActor() ) );
                 }
@@ -356,5 +405,15 @@ public class LevelScreen extends BaseScreen
         arrow.setMotionAngle( hero.getFacingAngle() );
     }
 
-
+    @Override
+    public void dispose() {
+        super.dispose();
+        backgroundd.dispose();
+        over.dispose();
+        positive.dispose();
+        coinCollect.dispose();
+    }
 }
+
+
+

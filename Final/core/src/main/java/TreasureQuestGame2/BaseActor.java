@@ -576,9 +576,7 @@ public class BaseActor extends Group
         cam.update();
     }
 
-    // ----------------------------------------------
-    // Instance list methods
-    // ----------------------------------------------
+
 
     /**
      *  Retrieves a list of all instances of the object from the given stage with the given class name
@@ -660,4 +658,7 @@ public class BaseActor extends Group
         super.draw( batch, parentAlpha );
     }
 
+    public void play(float audioVolume) {
+
+    }
 }

@@ -8,8 +8,8 @@ TreasureQuestGame2/BaseScreen.java
  TreasureQuestGame2.BaseScreen
 TreasureQuestGame2/DialogBox.java
  TreasureQuestGame2.DialogBox
-TreasureQuestGame2/Treasure.java
- TreasureQuestGame2.Treasure
+TreasureQuestGame2/MenuScreen.java
+ TreasureQuestGame2.MenuScreen
 TreasureQuestGame2/Coin.java
  TreasureQuestGame2.Coin
 TreasureQuestGame2/Hero.java
@@ -22,8 +22,8 @@ TreasureQuestGame2/Flyer.java
  TreasureQuestGame2.Flyer
 TreasureQuestGame2/Rock.java
  TreasureQuestGame2.Rock
-TreasureQuestGame2/LevelScreen.java
- TreasureQuestGame2.LevelScreen
+TreasureQuestGame2/TreasureHunt.java
+ TreasureQuestGame2.TreasureHunt
 TreasureQuestGame2/TilemapActor.java
  TreasureQuestGame2.TilemapActor
 TreasureQuestGame2/Sword.java
@@ -32,7 +32,7 @@ TreasureQuestGame2/BaseGame.java
  TreasureQuestGame2.BaseGame
 TreasureQuestGame2/Bush.java
  TreasureQuestGame2.Bush
-TreasureQuestGame2/TreasureHunt.java
- TreasureQuestGame2.TreasureHunt
-TreasureQuestGame2/MenuScreen.java
- TreasureQuestGame2.MenuScreen
+TreasureQuestGame2/Treasure.java
+ TreasureQuestGame2.Treasure
+TreasureQuestGame2/LevelScreen.java
+ TreasureQuestGame2.LevelScreen

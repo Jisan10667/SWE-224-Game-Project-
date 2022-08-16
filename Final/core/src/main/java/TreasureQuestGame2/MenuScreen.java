@@ -1,14 +1,18 @@
 package TreasureQuestGame2;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.graphics.Color;
+
 import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputEvent.Type;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
-public class MenuScreen extends BaseScreen
+
+
+public class MenuScreen<collect> extends BaseScreen
 {
+
+
     public void initialize()
     {
         BaseActor ocean = new BaseActor(0,0, mainStage);
@@ -17,26 +21,24 @@ public class MenuScreen extends BaseScreen
 
         BaseActor title = new BaseActor(0,0, mainStage);
         title.loadTexture( "Treasure-hunt.png" );
-        // title.centerAtPosition(400,300);
-        // title.moveBy(0,100);
 
-        // BaseActor start = new BaseActor(0,0, mainStage);
-        // start.loadTexture( "assets/message-start.png" );
-        // start.centerAtPosition(400,300);
-        // start.moveBy(0,-100);
-       
+
+
         TextButton startButton = new TextButton( "Start", BaseGame.textButtonStyle );
-        // startButton.setPosition(150,150);
-        // uiStage.addActor(startButton);
-        
+
+
         startButton.addListener(
-            (Event e) -> 
+            (Event e) ->
             { 
                 if ( !(e instanceof InputEvent) )
                     return false;
 
-                if ( !((InputEvent)e).getType().equals(Type.touchDown) )
-                    return false;
+
+                if ( !((InputEvent)e).getType().equals(InputEvent.Type.touchDown) )
+                   return false;
+
+
+
 
                 TreasureHunt.setActiveScreen( new LevelScreen() );
                 return true;
@@ -53,7 +55,7 @@ public class MenuScreen extends BaseScreen
                 if ( !(e instanceof InputEvent) )
                     return false;
 
-                if ( !((InputEvent)e).getType().equals(Type.touchDown) )
+                if ( !((InputEvent)e).getType().equals(InputEvent.Type.touchDown) )
                     return false;
                     
                 Gdx.app.exit();
@@ -68,6 +70,9 @@ public class MenuScreen extends BaseScreen
 
     }
 
+
+
+
     public void update(float dt)
     {
 
@@ -81,4 +86,6 @@ public class MenuScreen extends BaseScreen
              Gdx.app.exit();
         return false;
     }
+
+
 }
